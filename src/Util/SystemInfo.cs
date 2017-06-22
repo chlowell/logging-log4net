@@ -174,7 +174,7 @@ namespace log4net.Util
 		{
 			get 
 			{
-#if NETCF || NETSTANDARD1_3
+#if NETCF || NETSTANDARD1_3 || NETSTANDARD2_0
 				return SystemInfo.EntryAssemblyLocation+".config";
 #else
 				return System.AppDomain.CurrentDomain.SetupInformation.ConfigurationFile;
@@ -233,7 +233,7 @@ namespace log4net.Util
 			{
 #if NETCF_1_0
 				return System.Threading.Thread.CurrentThread.GetHashCode();
-#elif NET_2_0 || NETCF_2_0 || MONO_2_0 || MONO_3_5 || MONO_4_0 || NETSTANDARD1_3
+#elif NET_2_0 || NETCF_2_0 || MONO_2_0 || MONO_3_5 || MONO_4_0 || NETSTANDARD1_3 || NETSTANDARD2_0
 				return System.Threading.Thread.CurrentThread.ManagedThreadId;
 #else
 				return AppDomain.GetCurrentThreadId();
@@ -485,7 +485,7 @@ namespace log4net.Util
 #if NETCF
 			return "Not supported on Microsoft .NET Compact Framework";
 #elif NETSTANDARD1_3  // TODO Assembly.Location available in netstandard1.5
-            return "Not supported on .NET Core";
+            return "Not supported on .NET Standard 1.3";
 #else
 			if (myAssembly.GlobalAssemblyCache)
 			{
@@ -495,7 +495,7 @@ namespace log4net.Util
 			{
 				try
 				{
-#if NET_4_0 || MONO_4_0
+#if NET_4_0 || MONO_4_0 || NETSTANDARD2_0
 					if (myAssembly.IsDynamic)
 					{
 						return "Dynamic Assembly";
