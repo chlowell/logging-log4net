@@ -265,7 +265,7 @@ namespace log4net.Appender
 		/// The format of the output will depend on the appender's layout.
 		/// </para>
 		/// </remarks>
-#if NET_4_0 || MONO_4_0
+#if NET_4_0 || MONO_4_0 || NETSTANDARD2_0
         [System.Security.SecuritySafeCritical]
 #endif
         [System.Security.Permissions.SecurityPermission(System.Security.Permissions.SecurityAction.Demand, UnmanagedCode = true)]
@@ -426,15 +426,15 @@ namespace log4net.Appender
 			get { return true; }
 		}
 
-		/// <summary>
-		/// Initialize the options for this appender
-		/// </summary>
-		/// <remarks>
-		/// <para>
-		/// Initialize the level to color mappings set on this appender.
-		/// </para>
-		/// </remarks>
-#if NET_4_0 || MONO_4_0
+        /// <summary>
+        /// Initialize the options for this appender
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Initialize the level to color mappings set on this appender.
+        /// </para>
+        /// </remarks>
+#if NET_4_0 || MONO_4_0 || NETSTANDARD2_0
         [System.Security.SecuritySafeCritical]
 #endif
         [System.Security.Permissions.SecurityPermission(System.Security.Permissions.SecurityAction.Demand, UnmanagedCode=true)]
