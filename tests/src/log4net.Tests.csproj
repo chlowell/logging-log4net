@@ -22,10 +22,15 @@
 
   <PropertyGroup>
     <!--
-         Currently multitargeting tests doesn't work, separate projects are required.
-         (tracked at https://github.com/Microsoft/vstest/issues/298 and https://github.com/Microsoft/vstest/issues/624)
+         Multitargeting tests currently doesn't work in Visual Studio, which
+         will only identify and run tests for the first target framework
+         (see https://github.com/Microsoft/vstest/issues/298
+          and https://github.com/Microsoft/vstest/issues/624).
+
+         The dotnet CLI can run tests against any target framework. For
+         example: dotnet test log4net.Tests.csproj -f netcoreapp1.0
     -->
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFrameworks>netcoreapp2.0;netcoreapp1.0</TargetFrameworks>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <IsPackable>false</IsPackable>
     <AssemblyName>log4net.Tests</AssemblyName>
@@ -37,6 +42,10 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
     <PackageReference Include="NUnit" Version="3.7.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.8.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp1.0' ">
+    <Compile Remove="Appender\AdoNet\*;Appender\AdoNetAppenderTest.cs;Appender\RecursiveLoggingTest.cs;Util\PropertiesDictionaryTest.cs" />
   </ItemGroup>
 
 </Project>
