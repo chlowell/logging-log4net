@@ -58,12 +58,11 @@ pipeline {
 
 					// run docker container
 					builder.inside {
-						// compile
-						sh "nant compile-netstandard-1.3"
-						stash includes: 'bin/**/*.*', name: 'netstandard-1.3-assemblies'
-
-						// TODO: test; it currently does not work because the test project targets netstandard-2.0 only
-						// sh "dotnet test tests/src/log4net.Tests.csproj --verbosity detailed"
+						// the test project depends on the log4net project, so the below will
+						// compile the appropriate log4net binary as a side-effect
+						sh "dotnet restore tests/src/log4net.Tests.csproj"
+						sh "dotnet test tests/src/log4net.Tests.csproj -f netcoreapp1.0 -c Release"
+						stash includes: 'src/bin/**/*.*', name: 'netstandard-1.3-assemblies'
 					}
 				}
 			}
@@ -91,12 +90,10 @@ pipeline {
 
 					// run docker container
 					builder.inside {
-						// compile
-						sh "nant compile-netstandard-2.0"
-						stash includes: 'bin/**/*.*', name: 'netstandard-2.0-assemblies'
-
-						// TODO: test; it currently does not work because when tests fail the entire build fails
-						// sh "dotnet test tests/src/log4net.Tests.csproj --verbosity detailed"
+						// the test project depends on the log4net project, so the below will
+						// compile the appropriate log4net binary as a side-effect
+						sh "dotnet test tests/src/log4net.Tests.csproj -f netcoreapp2.0 -c Release"
+						stash includes: 'src/bin/**/*.*', name: 'netstandard-2.0-assemblies'
 					}
 				}
 			}
