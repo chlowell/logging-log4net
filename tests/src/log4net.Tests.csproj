@@ -5,16 +5,17 @@
          Currently multitargeting tests doesn't work, separate projects are required.
          (tracked at https://github.com/Microsoft/vstest/issues/298 and https://github.com/Microsoft/vstest/issues/624)
     -->
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <IsPackable>false</IsPackable>
     <AssemblyName>log4net.Tests</AssemblyName>
+    <DefineConstants>NETCOREAPP2_0</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="Appender\DebugAppenderTest.cs;Appender\EventLogAppenderTest.cs;Appender\RemotingAppenderTest.cs;Util\PatternStringTest.cs" />
     <ProjectReference Include="..\..\src\log4net.csproj" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.6.0-preview-20171211-02" />
     <PackageReference Include="NUnit" Version="3.7.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.8.0" />
   </ItemGroup>
